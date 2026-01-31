@@ -1,0 +1,230 @@
+.product-list-container {
+    margin: 0;
+}
+
+.search-bar {
+    margin-bottom: 24px;
+    display: none;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 16px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.search-input::placeholder {
+    color: #666680;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.table-container {
+    overflow-x: auto;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.product-table thead {
+    background: transparent;
+    color: #00d4cc;
+}
+
+.product-table th {
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #00d4cc;
+}
+
+.product-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.product-table tbody tr:hover {
+    background-color: rgba(0, 212, 204, 0.05);
+}
+
+.product-table td {
+    padding: 16px 12px;
+    font-size: 13px;
+    color: #e0e0e0;
+    vertical-align: middle;
+}
+
+.product-name {
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.product-description {
+    font-size: 12px;
+    color: #888898;
+    margin-top: 2px;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 212, 204, 0.15);
+    color: #2eecc8;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid rgba(0, 212, 204, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profit-positive {
+    color: #2eecc8;
+    font-weight: 700;
+}
+
+.profit-negative {
+    color: #ff8888;
+    font-weight: 700;
+}
+
+.margin-positive {
+    color: #2eecc8;
+    font-weight: 700;
+}
+
+.margin-negative {
+    color: #ff8888;
+    font-weight: 700;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-edit {
+    background: rgba(0, 212, 204, 0.15);
+    color: #2eecc8;
+    border: 1px solid rgba(0, 212, 204, 0.3);
+}
+
+.btn-edit:hover {
+    background: rgba(0, 212, 204, 0.25);
+    border-color: rgba(0, 212, 204, 0.5);
+}
+
+.btn-delete {
+    background: rgba(255, 136, 136, 0.15);
+    color: #ff8888;
+    border: 1px solid rgba(255, 136, 136, 0.3);
+}
+
+.btn-delete:hover {
+    background: rgba(255, 136, 136, 0.25);
+    border-color: rgba(255, 136, 136, 0.5);
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #a8b8c8;
+}
+
+.error-container {
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 136, 136, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 136, 136, 0.2);
+}
+
+.error-message {
+    color: #ff8888;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #00d4cc;
+    color: #0a1f1f;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 212, 204, 0.3);
+}
+
+.btn-primary:hover {
+    background: #00e4d9;
+    box-shadow: 0 8px 20px rgba(0, 212, 204, 0.5);
+}
+
+.no-products {
+    text-align: center;
+    padding: 60px 40px;
+    color: #a8b8c8;
+    font-size: 15px;
+    background: rgba(0, 212, 204, 0.03);
+    border-radius: 8px;
+    border: 1px dashed rgba(0, 212, 204, 0.2);
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        border-radius: 8px;
+    }
+    
+    .product-table th,
+    .product-table td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+    
+    .action-buttons {
+        flex-direction: row;
+        gap: 6px;
+    }
+    
+    .search-input {
+        max-width: 100%;
+    }
+}
