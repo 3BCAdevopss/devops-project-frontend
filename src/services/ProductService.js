@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api/products';
+const API_BASE_URL =
+    process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api/products';
 
 class ProductService {
     getAllProducts() {
@@ -34,4 +35,5 @@ class ProductService {
     }
 }
 
-export default new ProductService();
+const productService = new ProductService();
+export default productService;

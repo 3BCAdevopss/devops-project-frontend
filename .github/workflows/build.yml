@@ -19,4 +19,4 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=Ravikanth1407_devops-project-frontend
-            -Dsonar.organization=ravikanth14
+            -Dsonar.organization=ravikanth14                                   
