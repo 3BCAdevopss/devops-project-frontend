@@ -6,6 +6,20 @@ The application is built using React, follows DevOps best practices, and is inte
 🌐 Live Application (Frontend + Backend Integrated)
 👉 https://devops-project-frontend.vercel.app
 
+Domain:([raviportfolio.me](https://raviportfolio.me/))
+
+Tried buying domain name from namecheap.com and try to use my domain name to deploy my project but i got 404 error on browser 
+
+Steps:
+
+Buy domain from namecheap using git student developer pack
+
+Use my domain name on git=>frontrepo=>setting=>pages=>domain name:raviportfolio.me(DNS verified)
+
+On namecheap changed some advanced domain name settings with ip addresses and organisation name 
+
+But failed integrating...
+
 📌 Project Overview
 
 !)Frontend developed using React (Create React App)
