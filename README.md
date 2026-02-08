@@ -1,115 +1,189 @@
-#Frontend Application – DevOps Project
+DevOps Project – Frontend
 
-This repository contains the frontend application for a full-stack DevOps project.
-The frontend is built with React, containerized using Docker, analyzed using SonarCloud, deployed via GitHub Actions, and hosted on Vercel.
+This repository contains the frontend application for my DevOps project.
+The application is built using React, follows DevOps best practices, and is integrated with CI/CD, SonarCloud analysis, GitHub workflows, and cloud deployment.
 
-##Project Overview
+🌐 Live Application (Frontend + Backend Integrated)
+👉 https://devops-project-frontend.vercel.app
 
-Frontend built using React
+📌 Project Overview
 
-Dockerized using multi-stage Dockerfile
+!)Frontend developed using React (Create React App)
 
-CI/CD enabled with GitHub Actions
+2)Code quality analyzed using SonarCloud
 
-Static code analysis using SonarCloud
+3)CI/CD implemented with GitHub Actions
 
-Deployed on Vercel with a public domain
+4)Deployed using Vercel
 
-###Tech Stack
+5)Backend integrated via API endpoints
 
-Frontend: React (JavaScript)
+6)Version control and collaboration handled through GitHub
+
+🛠️ Tools & Technologies Used
+
+Frontend Framework: React (CRA)
+
+Programming Language: JavaScript
 
 Package Manager: npm
 
-Containerization: Docker, Docker Compose
+Code Quality: SonarCloud
 
 CI/CD: GitHub Actions
 
-Code Quality: SonarCloud
+Hosting / Deployment: Vercel
 
-Deployment: Vercel
+Version Control: Git & GitHub
 
-Environment Variables
+Testing: Jest (default CRA setup)
 
-The frontend communicates with the backend using an environment variable.
+⚙️ Project Build & Setup Steps
+1️⃣ Clone the Repository
+git clone https://github.com/3BCAdevopss/devops-project-frontend.git
+cd devops-project-frontend
 
-.env (local)
+2️⃣ Install Dependencies
+npm install
 
-REACT_APP_API_URL=http://localhost:8080
-
-Vercel Environment Variable
-
-REACT_APP_API_URL=https://<BACKEND_PUBLIC_URL>
-
-
-
+3️⃣ Run Application Locally
+npm start
 
 
-##Application will be available at:
+Application runs at:
 
 http://localhost:3000
 
-##Run Using Docker
-
-Build Docker Image
-
-docker build -t devops-frontend .
-
-##Run Container
-
-docker run -d -p 3000:80 devops-frontend
+4️⃣ Build the Project
+npm run build
 
 
-Open:
-http://localhost:3000
+This generates the optimized production build in the build/ folder.
 
-When running frontend + backend together:
+🔄 Git Workflow & Pull Request Process
 
-docker compose up --build
+Created a feature branch from main
 
+Implemented frontend features / fixes
 
-#Frontend:
+Committed changes with meaningful messages
 
-http://localhost:3000
+Raised a Pull Request (PR) to main
 
+GitHub Actions triggered automatically
 
-#Backend:
+SonarCloud analysis executed
 
-http://localhost:8080
+After checks passed, PR was merged into main
 
-CI/CD Pipeline
+🔍 SonarCloud Code Analysis
 
-Triggered on every git push to main
+Integrated SonarCloud with GitHub Actions
 
-Steps:
+Analyzed:
 
-Checkout code
+Code quality
 
-Build Docker image
+Maintainability
 
-Push image to Docker Hub
+Reliability
 
-Run SonarCloud analysis
+Security hotspots
 
-GitHub Actions handles the automation.
+Issues identified were fixed before merging
 
-Code Quality – SonarCloud
+Quality Gate status validated during PR checks
 
-Static analysis using SonarCloud
+✅ SonarCloud Analysis Status: Passed after resolving issues
 
-Quality Gate enforced
+🚀 Deployment (Vercel)
+Deployment Steps:
 
-Security hotspots reviewed and resolved
+Connected GitHub repository to Vercel
 
-Deployment on Vercel
+Selected frontend repository
 
-Frontend deployed using Vercel
+Configured build settings:
 
-Connected directly to GitHub repository
+Build Command: npm run build
 
-Auto-deployment on every push
+Output Directory: build
 
-Live URL:https://devops-project-frontend.vercel.app/
+Automatic deployment triggered on every push to main
 
-Author-Ravikanth
-This file is for pull request.........
+Environment variables configured for backend API integration
+
+🌐 Live URL:
+👉 https://devops-project-frontend.vercel.app
+
+🔗 Backend Integration
+
+Frontend communicates with backend APIs
+
+API base URL configured in frontend services
+
+Backend deployed separately and consumed via REST APIs
+
+End-to-end integration tested on Vercel deployment
+
+⚠️ Challenges Faced & Solutions
+🔴 SonarCloud Issues
+
+Initial analysis failed due to:
+
+Missing coverage
+
+ESLint warnings
+
+Solution:
+
+Fixed lint issues
+
+Adjusted SonarCloud configuration
+
+Re-ran analysis until Quality Gate passed
+
+🔴 GitHub Pages & Deployment Confusion
+
+Faced 404 errors during initial GitHub Pages setup
+
+Issues with homepage configuration and gh-pages
+
+Solution:
+
+Corrected homepage in package.json
+
+Ensured proper branch and folder selection
+
+Understood custom domain vs GitHub Pages behavior
+
+🔴 Vercel Deployment Issues
+
+Build failures due to environment variable mismatch
+
+Backend API not reachable initially
+
+Solution:
+
+Added correct environment variables in Vercel
+
+Verified API endpoints
+
+Rebuilt and redeployed successfully
+
+📈 Key Learnings
+
+Practical understanding of CI/CD pipelines
+
+Real-world experience with SonarCloud quality gates
+
+Handling frontend deployment in production
+
+Debugging build, deployment, and DNS issues
+
+End-to-end DevOps workflow for frontend applications
+
+👨‍💻 Author
+
+Ravikanth M
+DevOps & Full Stack Enthusiast
