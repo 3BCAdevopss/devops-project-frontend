@@ -96,6 +96,10 @@ Quality Gate status validated during PR checks
 
 ✅ SonarCloud Analysis Status: Passed after resolving issues
 
+sonar passed image:
+<img width="1920" height="1080" alt="Screenshot (295)" src="https://github.com/user-attachments/assets/0e4cff05-9285-4e2a-b1c0-769889efd53b" />
+
+
 🚀 Deployment (Vercel)
 Deployment Steps:
 
