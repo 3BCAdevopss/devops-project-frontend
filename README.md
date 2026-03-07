@@ -201,7 +201,3 @@ Debugging build, deployment, and DNS issues
 
 End-to-end DevOps workflow for frontend applications
 
-👨‍💻 Author
-
-Ravikanth M
-DevOps & Full Stack Enthusiast
