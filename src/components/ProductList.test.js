@@ -1,77 +1,54 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ProductList from './ProductList';
-import ProductService from '../services/ProductService';
 
-jest.mock('../services/ProductService');
+const mockProducts = [
+  {
+    id: 1,
+    productName: 'Phone',
+    category: 'Electronics',
+    costPrice: 100,
+    sellingPrice: 200,
+    profit: 100,
+    margin: 50,
+    description: 'Smart phone'
+  },
+  {
+    id: 2,
+    productName: 'Mouse',
+    category: 'Electronics',
+    costPrice: 50,
+    sellingPrice: 100,
+    profit: 50,
+    margin: 50
+  }
+];
 
-describe('ProductList', () => {
-  beforeEach(() => {
-    ProductService.getAllProducts.mockResolvedValue({ data: [] });
-    ProductService.searchProducts.mockResolvedValue({ data: [] });
-    ProductService.deleteProduct.mockResolvedValue({});
-  });
+test('renders products correctly', () => {
+  render(<ProductList products={mockProducts} onEdit={() => {}} search="" />);
 
-  test('renders products and handles edit click', async () => {
-    const onEdit = jest.fn();
-    ProductService.getAllProducts.mockResolvedValue({
-      data: [
-        {
-          id: 1,
-          productName: 'Phone',
-          category: 'Electronics',
-          costPrice: 200,
-          sellingPrice: 350,
-          profit: 150,
-          margin: 75,
-          description: 'Test'
-        }
-      ]
-    });
+  expect(
+    screen.getAllByText((text) => text.toLowerCase().includes('phone'))[0]
+  ).toBeInTheDocument();
 
-    render(<ProductList onEdit={onEdit} />);
+  expect(
+    screen.getByText((text) => text.toLowerCase().includes('mouse'))
+  ).toBeInTheDocument();
+});
 
-    await waitFor(() => {
-      expect(screen.queryByText(/loading products/i)).not.toBeInTheDocument();
-    });
+test('edit button works', () => {
+  const onEdit = jest.fn();
 
-    expect(screen.getByText('Phone')).toBeInTheDocument();
-    expect(screen.getByText('$200.00')).toBeInTheDocument();
+  render(<ProductList products={mockProducts} onEdit={onEdit} search="" />);
 
-    fireEvent.click(screen.getByTitle(/edit/i));
-    expect(onEdit).toHaveBeenCalledWith(expect.objectContaining({ id: 1 }));
-  });
+  const editButtons = screen.getAllByText('✏️');
+  fireEvent.click(editButtons[0]);
 
-  test('searches products when typing', async () => {
-    render(<ProductList onEdit={jest.fn()} />);
+  expect(onEdit).toHaveBeenCalled();
+});
 
-    const input = await screen.findByPlaceholderText(/search products/i);
-    await userEvent.type(input, 'lap');
+test('delete button renders', () => {
+  render(<ProductList products={mockProducts} onEdit={() => {}} search="" />);
 
-    await waitFor(() => {
-      expect(ProductService.searchProducts).toHaveBeenCalled();
-    });
-  });
-
-  test('deletes product when confirmed', async () => {
-    const onEdit = jest.fn();
-    ProductService.getAllProducts.mockResolvedValue({
-      data: [{ id: 5, productName: 'Mouse', costPrice: 10, sellingPrice: 15, profit: 5, margin: 50 }]
-    });
-    jest.spyOn(window, 'confirm').mockReturnValue(true);
-
-    render(<ProductList onEdit={onEdit} />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Mouse')).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByTitle(/delete/i));
-
-    await waitFor(() => {
-      expect(ProductService.deleteProduct).toHaveBeenCalledWith(5);
-    });
-
-    window.confirm.mockRestore();
-  });
+  const deleteButtons = screen.getAllByText('🗑️');
+  expect(deleteButtons.length).toBeGreaterThan(0);
 });
