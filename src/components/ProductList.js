@@ -1,55 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ProductService from '../services/ProductService';
 import './ProductList.css';
 
-const ProductList = ({ onEdit }) => {
-    const [products, setProducts] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const ProductList = ({ products = [], onEdit, search = "" }) => {
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+    // ✅ HIGHLIGHT FUNCTION
+    const highlightText = (text, search) => {
+        if (!search) return text;
 
-    const fetchProducts = async () => {
-        try {
-            setLoading(true);
-            const response = await ProductService.getAllProducts();
-            setProducts(response.data);
-            setError(null);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            setError('Failed to fetch products. Please ensure the backend is running.');
-        } finally {
-            setLoading(false);
-        }
+        const regex = new RegExp(`(${search})`, "gi");
+        const parts = String(text).split(regex);
+
+        return parts.map((part, index) =>
+            part.toLowerCase() === search.toLowerCase() ? (
+                <mark key={index}>{part}</mark>
+            ) : (
+                part
+            )
+        );
     };
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
             try {
                 await ProductService.deleteProduct(id);
-                fetchProducts();
+                window.location.reload(); // simple refresh
             } catch (error) {
                 console.error('Error deleting product:', error);
                 alert('Failed to delete product');
-            }
-        }
-    };
-
-    const handleSearch = async (e) => {
-        const value = e.target.value;
-        setSearchTerm(value);
-        
-        if (value.trim() === '') {
-            fetchProducts();
-        } else {
-            try {
-                const response = await ProductService.searchProducts(value);
-                setProducts(response.data);
-            } catch (error) {
-                console.error('Error searching products:', error);
             }
         }
     };
@@ -65,34 +43,12 @@ const ProductList = ({ onEdit }) => {
         return `${(value || 0).toFixed(2)}%`;
     };
 
-    if (loading) {
-        return <div className="loading">Loading products...</div>;
-    }
-
-    if (error) {
-        return (
-            <div className="error-container">
-                <div className="error-message">{error}</div>
-                <button onClick={fetchProducts} className="btn btn-primary">Retry</button>
-            </div>
-        );
-    }
-
     return (
         <div className="product-list-container">
-            <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    className="search-input"
-                />
-            </div>
 
             {products.length === 0 ? (
                 <div className="no-products">
-                    <p>No products found. Add your first product to get started!</p>
+                    <p>No products found.</p>
                 </div>
             ) : (
                 <div className="table-container">
@@ -112,37 +68,51 @@ const ProductList = ({ onEdit }) => {
                             {products.map(product => (
                                 <tr key={product.id}>
                                     <td>
-                                        <div className="product-name">{product.productName}</div>
+                                        <div className="product-name">
+                                            {highlightText(
+                                                product?.productName || product?.name || "",
+                                                search
+                                            )}
+                                        </div>
+
                                         {product.description && (
-                                            <div className="product-description">{product.description}</div>
+                                            <div className="product-description">
+                                                {highlightText(product.description, search)}
+                                            </div>
                                         )}
                                     </td>
+
                                     <td>
                                         {product.category && (
-                                            <span className="category-badge">{product.category}</span>
+                                            <span className="category-badge">
+                                                {highlightText(product.category, search)}
+                                            </span>
                                         )}
                                     </td>
+
                                     <td>{formatCurrency(product.costPrice)}</td>
                                     <td>{formatCurrency(product.sellingPrice)}</td>
+
                                     <td className={product.profit >= 0 ? 'profit-positive' : 'profit-negative'}>
                                         {formatCurrency(product.profit)}
                                     </td>
+
                                     <td className={product.margin >= 0 ? 'margin-positive' : 'margin-negative'}>
                                         {formatPercentage(product.margin)}
                                     </td>
+
                                     <td>
                                         <div className="action-buttons">
                                             <button
                                                 onClick={() => onEdit(product)}
                                                 className="btn btn-edit"
-                                                title="Edit"
                                             >
                                                 ✏️
                                             </button>
+
                                             <button
                                                 onClick={() => handleDelete(product.id)}
                                                 className="btn btn-delete"
-                                                title="Delete"
                                             >
                                                 🗑️
                                             </button>

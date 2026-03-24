@@ -1,7 +1,19 @@
 import axios from 'axios';
 
-const API_BASE_URL =
-    process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api/products';
+// Auto detect based on where app is running
+const getBaseUrl = () => {
+    const hostname = window.location.hostname;
+
+    // If running in Azure
+    if (hostname.includes("azurewebsites.net")) {
+        return process.env.REACT_APP_API_AZURE;
+    }
+
+    // Default → Render
+    return process.env.REACT_APP_API_RENDER;
+};
+
+const API_BASE_URL = getBaseUrl();
 
 class ProductService {
     getAllProducts() {

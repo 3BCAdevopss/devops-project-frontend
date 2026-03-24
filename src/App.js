@@ -8,6 +8,10 @@ function App() {
   const [productToEdit, setProductToEdit] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [products, setProducts] = useState([]);
+
+  // ✅ Search state
+  const [search, setSearch] = useState("");
+
   const [totalProfit, setTotalProfit] = useState(0);
   const [avgMargin, setAvgMargin] = useState(0);
 
@@ -18,24 +22,29 @@ function App() {
   const fetchProducts = async () => {
     try {
       const response = await ProductService.getAllProducts();
-      setProducts(response.data);
-      
-      // Calculate total profit and average margin
+
+      const data = response.data || [];
+      setProducts(data);
+
       let totalP = 0;
       let totalM = 0;
-      if (response.data.length > 0) {
-        response.data.forEach(product => {
-          totalP += product.profit || 0;
-          totalM += product.margin || 0;
+
+      if (data.length > 0) {
+        data.forEach(product => {
+          totalP += product?.profit || 0;
+          totalM += product?.margin || 0;
         });
+
         setTotalProfit(totalP);
-        setAvgMargin(totalM / response.data.length);
+        setAvgMargin(totalM / data.length);
       } else {
         setTotalProfit(0);
         setAvgMargin(0);
       }
+
     } catch (error) {
       console.error('Error fetching products:', error);
+      setProducts([]); // ✅ prevent crash
     }
   };
 
@@ -58,6 +67,16 @@ function App() {
       currency: 'USD'
     }).format(value || 0);
   };
+
+  //  SAFE FILTER (NO ERROR)
+  const filteredProducts = products.filter((product) => {
+    const name =
+      product?.name ||
+      product?.productName ||
+      "";
+
+    return name.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="App">
@@ -103,10 +122,29 @@ function App() {
               <span className="section-label">PRODUCTS</span>
               <h2>Portfolio overview</h2>
             </div>
+
+            {/* ✅ SEARCH BAR */}
+            <div style={{ marginBottom: "15px" }}>
+              <input
+                type="text"
+                placeholder="Search product..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{
+                  padding: "10px",
+                  width: "250px",
+                  borderRadius: "6px",
+                  border: "1px solid #ccc"
+                }}
+              />
+            </div>
+
+            {/* ✅ PASS SEARCH + FILTERED DATA */}
             <ProductList 
               key={refreshKey}
               onEdit={handleEdit}
-              products={products}
+              products={filteredProducts}
+              search={search}   // 🔥 needed for highlight
             />
           </div>
         </div>
