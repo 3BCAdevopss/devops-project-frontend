@@ -68,7 +68,7 @@ function App() {
     }).format(value || 0);
   };
 
-  // ✅ SAFE FILTER (NO ERROR)
+  //  SAFE FILTER (NO ERROR)
   const filteredProducts = products.filter((product) => {
     const name =
       product?.name ||
